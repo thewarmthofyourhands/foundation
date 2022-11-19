@@ -1,0 +1,21 @@
+{
+    "name": "eva/foundation",
+    "description": "Foundation",
+    "keywords": [],
+    "homepage": "https://github.com/thewarmthofyourhands",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "thewarmthofyourhands"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "eva/http-request": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eva\\Foundation\\": "src/"
+        }
+    }
+}
