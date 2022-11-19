@@ -1,6 +1,8 @@
 {
     "name": "eva/foundation",
     "description": "Foundation",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "keywords": [],
     "homepage": "https://github.com/thewarmthofyourhands",
     "license": "MIT",
