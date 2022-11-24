@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Eva\Foundation\Http;
 
+use Eva\Env\Env;
+use Eva\Env\EnvInterface;
 use Eva\EventDispatcher\EventDispatcher;
 use Eva\EventDispatcher\EventDispatcherInterface;
 use Eva\Http\Message\ResponseInterface;
@@ -34,6 +36,7 @@ trait HttpApplicationTrait
     protected function getKernelServices(): array
     {
         return [
+            [['env', EnvInterface::class, Env::class], Env::class],
             [['kernel', KernelInterface::class], Kernel::class],
             [['eventDispatcher', EventDispatcherInterface::class], EventDispatcher::class],
             [['router', RouterInterface::class], Router::class],

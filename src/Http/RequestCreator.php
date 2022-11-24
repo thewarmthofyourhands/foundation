@@ -7,7 +7,7 @@ namespace Eva\Foundation\Http;
 use Eva\Http\HttpMethodsEnum;
 use Eva\Http\Message\RequestInterface;
 use Eva\Http\Message\Request;
-use Eva\HttpKernel\HttpProtocolVersionEnum;
+use Eva\Http\HttpProtocolVersionEnum;
 
 class RequestCreator
 {
