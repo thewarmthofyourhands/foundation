@@ -12,15 +12,14 @@ class ResponseSender
 
     public function send(): void
     {
-        header('HTTP/' . $this->response->getProtocolVersion());
+        header('HTTP/' . $this->response->getProtocolVersion()->value);
 
         foreach ($this->response->getHeaders() as $headerName => $headerValue) {
-            header($headerName . ' ' . $headerValue);
+            header($headerName . ': ' . $headerValue);
         }
 
         http_response_code($this->response->getStatusCode());
 
-//        echo $this->response->getBody();
-        fwrite(STDOUT, $this->response->getBody());
+        echo $this->response->getBody();
     }
 }

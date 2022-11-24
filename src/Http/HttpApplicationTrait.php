@@ -10,14 +10,25 @@ use Eva\Http\Message\ResponseInterface;
 use Eva\Http\Message\RequestInterface;
 use Eva\HttpKernel\Kernel;
 use Eva\HttpKernel\KernelInterface;
-use Eva\Router\Router;
-use Eva\Router\RouterInterface;
+use Eva\HttpKernel\Router;
+use Eva\HttpKernel\RouterInterface;
 
 trait HttpApplicationTrait
 {
     public function handle(RequestInterface $request): ResponseInterface
     {
-        return $this->getContainer()->get('kernel')->handle($request);
+        /** @var KernelInterface $kernel */
+        $kernel = $this->getContainer()->get('kernel');
+
+        return $kernel->handle($request);
+    }
+
+    public function terminate(RequestInterface $request, ResponseInterface $response): void
+    {
+        fastcgi_finish_request();
+        /** @var KernelInterface $kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $kernel->terminate($request, $response);
     }
 
     protected function getKernelServices(): array

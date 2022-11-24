@@ -26,9 +26,14 @@ abstract class AbstractApplication
         return $this->container;
     }
 
-    protected function boot(): void
+    protected function initializeChdir(): void
     {
         chdir(dirname($_SERVER["SCRIPT_FILENAME"]) . '/..');
+    }
+
+    protected function boot(): void
+    {
+        $this->initializeChdir();
         $this->initializeEnv();
         $this->initializeContainer();
     }

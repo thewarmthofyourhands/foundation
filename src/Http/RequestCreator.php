@@ -7,6 +7,7 @@ namespace Eva\Foundation\Http;
 use Eva\Http\HttpMethodsEnum;
 use Eva\Http\Message\RequestInterface;
 use Eva\Http\Message\Request;
+use Eva\HttpKernel\HttpProtocolVersionEnum;
 
 class RequestCreator
 {
@@ -29,11 +30,18 @@ class RequestCreator
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $headers = static::getRequestHeaders();
-        $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
-            . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $body = file_get_contents('php://input');
+        $uri = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
+            . "://$_SERVER[HTTP_HOST]:$_SERVER[SERVER_PORT]$_SERVER[REQUEST_URI]";
+        $protocolVersion = str_replace('HTTP/', '', $_SERVER['SERVER_PROTOCOL']);
+        $body = file_get_contents('php://input') ?: null;
         unset($_SERVER['HTTPS']);
 
-        return new Request(HttpMethodsEnum::from($method), $uri, $headers, $body);
+        return new Request(
+            HttpMethodsEnum::from($method),
+            $uri,
+            $headers,
+            $body,
+            HttpProtocolVersionEnum::from($protocolVersion)
+        );
     }
 }

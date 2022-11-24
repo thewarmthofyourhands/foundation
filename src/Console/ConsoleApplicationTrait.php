@@ -19,6 +19,13 @@ trait ConsoleApplicationTrait
         $this->getContainer()->get('kernel')->handle($argvInput);
     }
 
+    public function terminate(ArgvInput $argvInput): void
+    {
+        /** @var ConsoleKernelInterface $kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $kernel->terminate($argvInput);
+    }
+
     protected function getKernelServices(): array
     {
         return [
